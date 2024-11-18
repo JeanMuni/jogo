@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Aventura</title>
+    <style>
+        /* Resetando margin e padding padrão */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo do corpo */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2e3b4e;
+            color: #f4f4f9;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-image: url('https://www.w3schools.com/w3images/forest.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Container principal */
+        .game-container {
+            background-color: rgba(0, 0, 0, 0.6);  /* Fundo translúcido */
+            padding: 20px 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Título */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Texto da história */
+        #story-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo dos botões de escolha */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Estilo do botão de escolha inválida */
+        .invalid {
+            background-color: #ff4e50;
+        }
+
+        .invalid:hover {
+            background-color: #d43f3a;
+        }
+
+        /* Efeito de fade para transições de história */
+        #story-text {
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Bem-vindo ao Mundo de Aventura!</h1>
+        <p id="story-text">Você está em uma floresta escura e misteriosa. O que deseja fazer?</p>
+        <div class="choices">
+            <button onclick="makeChoice(1)">Seguir o som da água</button>
+            <button onclick="makeChoice(2)">Seguir a luz distante</button>
+            <button onclick="makeChoice(3)">Ficar onde está</button>
+        </div>
+    </div>
+
+    <script>
+        function makeChoice(choice) {
+            let storyText = document.getElementById('story-text');
+            const choicesContainer = document.querySelector('.choices');
+            
+            // Resetando o texto com efeito fade
+            storyText.style.animation = 'none';  // Reseta a animação
+            setTimeout(() => { storyText.style.animation = 'fadeIn 1s forwards'; }, 50);
+
+            if (choice === 1) {
+                storyText.innerHTML = "Você segue o som da água e encontra um riacho. Algo brilha dentro da água.";
+                choicesContainer.innerHTML = `
+                    <button onclick="makeChoice(4)">Pegar o objeto brilhante</button>
+                    <button onclick="makeChoice(5)">Ignorar o objeto e seguir em frente</button>
+                `;
+            } else if (choice === 2) {
+                storyText.innerHTML = "Você segue a luz e encontra um castelo antigo. A porta está trancada.";
+                choicesContainer.innerHTML = `
+                    <button onclick="makeChoice(6)">Procurar por uma chave</button>
+                    <button onclick="makeChoice(7)">Tentar entrar pela janela</button>
+                `;
+            } else if (choice === 3) {
+                storyText.innerHTML = "Você decide esperar, mas acaba adormecendo. O jogo acabou!";
+                choicesContainer.innerHTML = '';
+            } else if (choice === 4) {
+                storyText.innerHTML = "Você pega o objeto e encontra uma chave dourada!";
+                choicesContainer.innerHTML = `
+                    <button onclick="makeChoice(8)">Usar a chave para abrir a porta do castelo</button>
+                    <button onclick="makeChoice(9)">Procurar outro caminho</button>
+                `;
+            } else if (choice === 5) {
+                storyText.innerHTML = "Você decide seguir o caminho, mas a floresta fica cada vez mais densa. O jogo acabou!";
+                choicesContainer.innerHTML = '';
+            } else if (choice === 6) {
+                storyText.innerHTML = "Você encontra uma chave perto da porta do castelo!";
+                choicesContainer.innerHTML = `
+                    <button onclick="makeChoice(8)">Usar a chave para abrir a porta do castelo</button>
+                    <button onclick="makeChoice(9)">Procurar outro caminho</button>
+                `;
+            } else if (choice === 7) {
+                storyText.innerHTML = "A janela está trancada. Você não consegue entrar. O jogo acabou!";
+                choicesContainer.innerHTML = '';
+            } else if (choice === 8) {
+                storyText.innerHTML = "Você usa a chave, entra no castelo e encontra um tesouro! Parabéns, você venceu!";
+                choicesContainer.innerHTML = '';
+            } else if (choice === 9) {
+                storyText.innerHTML = "Você encontra um caminho secreto, mas ele leva a um beco sem saída. O jogo acabou!";
+                choicesContainer.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+</html>
